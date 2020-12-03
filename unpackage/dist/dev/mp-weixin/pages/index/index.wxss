@@ -1,0 +1,30 @@
+
+@font-face {
+	font-family:'hot-nijia';
+	src: url("/fonts/HOT-Ninja Std R.otf");
+}
+.container.data-v-57280228 {
+  width: 600rpx;
+  padding: 10rpx 10rpx;
+}
+.cards.data-v-57280228 {
+	font-family: 'hot-nijia';
+	font-size: 18px;
+  height: 500rpx;
+  background-color: #CCCCCC;
+  padding: 20rpx;
+  -webkit-border-radius: 10rpx;
+          border-radius: 10rpx;
+  margin-bottom: 20rpx;
+}
+.title.data-v-57280228 {
+	font-size: 36rpx;
+}
+.cover.data-v-57280228 {
+  width: 500rpx;
+  height: 300rpx;
+  -webkit-border-radius: 10rpx;
+          border-radius: 10rpx;
+}
+
+
