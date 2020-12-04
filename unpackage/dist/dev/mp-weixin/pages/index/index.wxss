@@ -1,30 +1,24 @@
 
-@font-face {
-	font-family:'hot-nijia';
-	src: url("/fonts/HOT-Ninja Std R.otf");
-}
-.container.data-v-57280228 {
-  width: 600rpx;
-  padding: 10rpx 10rpx;
-}
 .cards.data-v-57280228 {
-	font-family: 'hot-nijia';
-	font-size: 18px;
-  height: 500rpx;
-  background-color: #CCCCCC;
+  height: 600rpx;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+          flex-direction: column;
+  background-color: rgb(153,158,207);
   padding: 20rpx;
+  -webkit-border-radius: 10rpx;
+          border-radius: 10rpx;
+  margin: 10rpx 10rpx 20rpx 10rpx;
+}
+.cover.data-v-57280228 {
+  width: 700rpx;
+  height: 440rpx;
   -webkit-border-radius: 10rpx;
           border-radius: 10rpx;
   margin-bottom: 20rpx;
 }
-.title.data-v-57280228 {
-	font-size: 36rpx;
-}
-.cover.data-v-57280228 {
-  width: 500rpx;
-  height: 300rpx;
-  -webkit-border-radius: 10rpx;
-          border-radius: 10rpx;
-}
-
 
