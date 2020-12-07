@@ -1,1 +1,1 @@
-<view></view>
+<view><view class="flex justify-center"><image style="border-radius:50%;width:200rpx;height:200rpx;" src="../../static/me.jpg"></image></view><view class=" text-secondary flex justify-center m-2">version 1.0.0</view><view><uni-list-item vue-id="1cea7424-1" title="新版本检测" data-event-opts="{{[['^click',[['open']]]]}}" bind:click="__e" bind:__l="__l"></uni-list-item><uni-list-item vue-id="1cea7424-2" title="社区用户协议" data-event-opts="{{[['^click',[['open']]]]}}" bind:click="__e" bind:__l="__l"></uni-list-item></view></view>

@@ -1,7 +1,7 @@
 <template>
   <view>
     <template v-if="loginStatus">
-      <uni-list-item title="账号与安全"></uni-list-item>
+      <uni-list-item title="账号与安全" @click="open('user-safe')"></uni-list-item>
       <uni-list-item title="资料编辑" @click="open('user-info')"></uni-list-item>
     </template>
       <uni-list-item title="清除缓存" @click="clear">

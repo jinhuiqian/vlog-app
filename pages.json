@@ -96,6 +96,14 @@
             }
             
         }
+		,{
+		    "path" : "pages/user-safe/user-safe",
+		    "style" :                                                                                    
+		    {
+		        "navigationBarTitleText": "账号安全"
+		    }
+		    
+		}
         ,{
             "path" : "pages/user-info/user-info",
             "style" :                                                                                    
@@ -109,6 +117,14 @@
             "style" :                                                                                    
             {
                 "navigationBarTitleText": "意见反馈"
+            }
+            
+        }
+        ,{
+            "path" : "pages/password-set/password-set",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "修改密码"
             }
             
         }

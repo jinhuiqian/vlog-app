@@ -7,8 +7,10 @@
     "pages/login/login",
     "pages/user-set/user-set",
     "pages/about/about",
+    "pages/user-safe/user-safe",
     "pages/user-info/user-info",
-    "pages/user-feedback/user-feedback"
+    "pages/user-feedback/user-feedback",
+    "pages/password-set/password-set"
   ],
   "subPackages": [],
   "window": {
