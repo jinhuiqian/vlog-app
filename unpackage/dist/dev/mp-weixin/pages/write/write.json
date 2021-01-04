@@ -1,0 +1,11 @@
+{
+  "navigationBarTitleText": "",
+  "enablePullDownRefresh": false,
+  "usingComponents": {
+    "uni-tag": "/components/uni-tag/uni-tag",
+    "jin-edit": "/components/jin-edit/jin-edit",
+    "uni-list-item": "/components/uni-ui/uni-list-item/uni-list-item",
+    "uni-collapse": "/components/uni-ui/uni-collapse/uni-collapse",
+    "uni-collapse-item": "/components/uni-ui/uni-collapse-item/uni-collapse-item"
+  }
+}

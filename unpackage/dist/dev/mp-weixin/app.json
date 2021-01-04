@@ -10,7 +10,10 @@
     "pages/user-safe/user-safe",
     "pages/user-info/user-info",
     "pages/user-feedback/user-feedback",
-    "pages/password-set/password-set"
+    "pages/user-password/user-password",
+    "pages/user-phone/user-phone",
+    "pages/ArticleDetail/ArticleDetail",
+    "pages/write/write"
   ],
   "subPackages": [],
   "window": {
@@ -55,5 +58,5 @@
     "divider": "/components/common/divider",
     "no-thing": "/components/common/no-thing"
   },
-  "sitemapLocation": "sitemap85.json"
+  "sitemapLocation": "sitemap78.json"
 }

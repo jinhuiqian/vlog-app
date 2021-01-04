@@ -1,5 +1,6 @@
 {
+  "enablePullDownRefresh": true,
   "usingComponents": {
-    "uni-nav-bar": "/components/uni-ui/uni-nav-bar/uni-nav-bar"
+    "my-card": "/components/my-card/my-card"
   }
 }

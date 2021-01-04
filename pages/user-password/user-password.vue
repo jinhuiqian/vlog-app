@@ -48,6 +48,9 @@
 				return true;
 			},
 			submit() {
+				if(!this.check()) {
+					return;
+				}
 				let data = {
 					phone: this.user.phone,
 					password: this.newpassword,

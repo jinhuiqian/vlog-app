@@ -104,20 +104,15 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "recyclableRender", function() { return recyclableRender; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "components", function() { return components; });
-var components
+var components = {
+  myCard: function() {
+    return __webpack_require__.e(/*! import() | components/my-card/my-card */ "components/my-card/my-card").then(__webpack_require__.bind(null, /*! @/components/my-card/my-card.vue */ 114))
+  }
+}
 var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  if (!_vm._isMounted) {
-    _vm.e0 = function($event) {
-      _vm.click - _vm.left
-    }
-
-    _vm.e1 = function($event) {
-      _vm.click - _vm.right
-    }
-  }
 }
 var recyclableRender = false
 var staticRenderFns = []
@@ -149,7 +144,7 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var uniNavBar = function uniNavBar() {__webpack_require__.e(/*! require.ensure | components/uni-ui/uni-nav-bar/uni-nav-bar */ "components/uni-ui/uni-nav-bar/uni-nav-bar").then((function () {return resolve(__webpack_require__(/*! @/components/uni-ui/uni-nav-bar/uni-nav-bar.vue */ 111));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default =
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;
 
 
 
@@ -184,27 +179,135 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 
 
 
+
+
+
+
+
+var _vuex = __webpack_require__(/*! vuex */ 12);
+
+var _config = _interopRequireDefault(__webpack_require__(/*! @/common/config.js */ 13));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function ownKeys(object, enumerableOnly) {var keys = Object.keys(object);if (Object.getOwnPropertySymbols) {var symbols = Object.getOwnPropertySymbols(object);if (enumerableOnly) symbols = symbols.filter(function (sym) {return Object.getOwnPropertyDescriptor(object, sym).enumerable;});keys.push.apply(keys, symbols);}return keys;}function _objectSpread(target) {for (var i = 1; i < arguments.length; i++) {var source = arguments[i] != null ? arguments[i] : {};if (i % 2) {ownKeys(Object(source), true).forEach(function (key) {_defineProperty(target, key, source[key]);});} else if (Object.getOwnPropertyDescriptors) {Object.defineProperties(target, Object.getOwnPropertyDescriptors(source));} else {ownKeys(Object(source)).forEach(function (key) {Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key));});}}return target;}function _defineProperty(obj, key, value) {if (key in obj) {Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true });} else {obj[key] = value;}return obj;}var myCard = function myCard() {__webpack_require__.e(/*! require.ensure | components/my-card/my-card */ "components/my-card/my-card").then((function () {return resolve(__webpack_require__(/*! @/components/my-card/my-card.vue */ 114));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default =
 {
   components: {
-    uniNavBar: uniNavBar },
+    // uniNavBar
+    myCard: myCard },
 
   data: function data() {
     return {
-      cards: [] };
+      // cards: []
+      articles: [],
+      pageNum: 1,
+      pageSize: 6,
+      more: true };
 
   },
-  onLoad: function onLoad() {
-    this.getData();
+  computed: _objectSpread({},
+  (0, _vuex.mapState)({
+    loginStatus: function loginStatus(state) {return state.loginStatus;},
+    user: function user(state) {return state.user;} })),
+
+
+  onNavigationBarButtonTap: function onNavigationBarButtonTap() {
+    uni.navigateTo({
+      url: '../write/write' });
+
   },
+  onLoad: function onLoad() {var _this = this;
+    uni.getSystemInfo({
+      success: function success(res) {
+        _this.scrollH = res.windowHeight - url.upx2px(101);
+      } });
+
+    uni.showLoading({
+      title: '加载中' });
+
+    this.getData();
+    setTimeout(function () {
+      console.log('开启下拉刷新');
+    }, 1000);
+    uni.startPullDownRefresh();
+  },
+  //触底
+  onReachBottom: function onReachBottom() {var _this2 = this;
+    //没有更多数据了
+    if (!this.more) {
+      uni.showToast({
+        title: '已加载完毕',
+        duration: 1000 });
+
+      return false;
+    }
+    //正常加载下一页
+    this.pageNum = this.pageNum + 1;
+    uni.showLoading({
+      title: '加载中' });
+
+    uni.request({
+      url: _config.default.webUrl + '/article/page?pageNum=' + this.pageNum + '&pageSize=' + this.pageSize,
+      method: 'POST',
+      header: {
+        userId: this.user.id },
+
+      success: function success(res) {
+        setTimeout(function () {
+          uni.hideLoading();
+        }, 100);
+        //追加到原数组的尾部，不能覆盖原数组
+        _this2.articles = _this2.articles.concat(res.data.data.list);
+        //已经最后一页
+        if (res.data.data.list.length < _this2.pageSize && _this2.pageNum > 0) {
+          _this2.more = false;
+        }
+      } });
+
+  },
+  //下拉刷新，要将当前页码重置为1，more属性回归成true
+  onPullDownRefresh: function onPullDownRefresh() {
+    this.pageNum = 1;
+    this.more = true;
+    this.getData();
+    //一秒内下拉恢复
+    setTimeout(function () {
+      uni.stopPullDownRefresh();
+    }, 1000);
+  },
+
   methods: {
     // 获取数据
-    getData: function getData() {var _this = this;
-      // 获取数据
-      this.$H.get('/cards').then(function (res) {
-        console.log(res);
-        _this.cards = res;
-      });
+    // getData() {
+    // 	// 获取数据
+    // 	this.$H.get('/cards').then(res => {
+    // 		console.log(res);
+    // 		this.cards = res;
+    // 	});
+    // }
+    //请求数据，使用了uni原生的request请求
+    getData: function getData() {var _this3 = this;
+      uni.request({
+        url: _config.default.webUrl + '/article/page?pageNum=' + this.pageNum + '&pageSize=' + this.pageSize,
+        method: 'POST',
+        header: {
+          userId: this.user.id //把id改为数量少点的用户
+        },
+        success: function success(res) {
+          //请求结束延时隐藏加载动画
+          setTimeout(function () {
+            uni.hideLoading();
+          }, 100);
+          //res.data.data包含了分页的更多信息，list属性才是真正的数据[]
+          console.log(res.data.data.pageSize);
+          console.log(res.data.data.total);
+          _this3.articles = res.data.data.list;
+        } });
+
+    },
+    gotoDetail: function gotoDetail(id) {
+      console.log('文章id:' + id);
+      uni.navigateTo({
+        url: '../ArticleDetail/ArticleDetail?id=' + id });
+
     } } };exports.default = _default;
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
 /***/ }),
 /* 22 */

@@ -3,7 +3,9 @@
 		{
 			"path": "pages/index/index",
 			"style": {
+				"enablePullDownRefresh": true,
 				"app-plus": {
+					"scrollIndicator": "none",
 					// 导航栏配置
 					"titleNView": {
 						// 搜索框配置
@@ -125,6 +127,33 @@
             "style" :                                                                                    
             {
                 "navigationBarTitleText": "修改密码"
+            }
+            
+        }
+        ,{
+            "path" : "pages/user-phone/user-phone",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/ArticleDetail/ArticleDetail",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/write/write",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false
             }
             
         }

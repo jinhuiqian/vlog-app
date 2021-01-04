@@ -35,4 +35,5 @@ page {
 image {
 	background-color: #cccccc;
 }
+
 </style>

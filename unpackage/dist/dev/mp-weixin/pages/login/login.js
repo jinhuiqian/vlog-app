@@ -128,7 +128,27 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var uniStatusBar = function uniStatusBar() {__webpack_require__.e(/*! require.ensure | components/uni-ui/uni-status-bar/uni-status-bar */ "components/uni-ui/uni-status-bar/uni-status-bar").then((function () {return resolve(__webpack_require__(/*! @/components/uni-ui/uni-status-bar/uni-status-bar.vue */ 118));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default =
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var uniStatusBar = function uniStatusBar() {__webpack_require__.e(/*! require.ensure | components/uni-ui/uni-status-bar/uni-status-bar */ "components/uni-ui/uni-status-bar/uni-status-bar").then((function () {return resolve(__webpack_require__(/*! @/components/uni-ui/uni-status-bar/uni-status-bar.vue */ 128));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default =
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -241,6 +261,50 @@ __webpack_require__.r(__webpack_exports__);
         delta: 1 });
 
     },
+    appLogin: function appLogin() {
+      var self = this;
+      uni.login({
+        provider: 'weixin',
+        success: function success(loginRes) {
+          uni.getUserInfo({
+            provider: 'weixin',
+            success: function success(infoRes) {
+              console.log(infoRes);
+              var wxLoginDto = {
+                wxOpenId: infoRes.userInfo.openId,
+                nickname: infoRes.userInfo.nickName,
+                avatar: infoRes.userInfo.avatarUrl,
+                gender: infoRes.userInfo.gender };
+
+              self.loading = true;
+              self.$H.
+              post('/user/wxLogin', wxLoginDto).
+              then(function (res) {
+                self.loading = false;
+                console.log(res);
+                if (res) {
+                  console.log(res);
+                  //修改vuex的state,持久化存储
+                  self.$store.commit('login', res);
+                  uni.switchTab({
+                    url: '../my/my' });
+
+                } else {
+                  uni.showModal({
+                    title: '登录失败' });
+
+                  return;
+                }
+              }).
+              catch(function (err) {
+                //登录失败
+                self.loading = false;
+              });
+            } });
+
+        } });
+
+    },
     //初始化表单
     initForm: function initForm() {
       this.phone = '';
@@ -321,24 +385,31 @@ __webpack_require__.r(__webpack_exports__);
       post(url, data).
       then(function (res) {
         _this2.loading = false;
-        console.log(res);
-        //修改vuex的state，持久化存储
-        _this2.$store.commit('login', res);
-        //提示和跳转
-        uni.showModal({
-          title: '登录成功',
-          content: '去看看',
-          success: function success(res) {
-            if (res.confirm) {
-              uni.switchTab({
-                url: '../my/my' });
+        if (res) {
+          console.log(res);
+          //修改vuex的state，持久化存储
+          _this2.$store.commit('login', res);
+          //提示和跳转
+          uni.showModal({
+            title: '登录成功',
+            content: '去看看',
+            success: function success(res) {
+              if (res.confirm) {
+                uni.switchTab({
+                  url: '../my/my' });
 
-            } else if (res.cancel) {
-              console.log('用户点击取消');
-              return;
-            }
-          } });
+              } else if (res.cancel) {
+                console.log('用户点击取消');
+                return;
+              }
+            } });
 
+        } else {
+          uni.showModal({
+            title: '登录失败' });
+
+          return;
+        }
       }).
       catch(function (err) {
         //登录失败
